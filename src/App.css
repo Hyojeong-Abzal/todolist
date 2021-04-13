@@ -1,27 +1,5 @@
-.App {
-  padding: 30px;
-  display: flex;
-}
 
-.Todolist {
-  display: flex;
-  padding: 50px;
-}
-.active-filter {
-  background-color: orange;
-}
-
-.error-Input {
-  border: red 2px solid;
-  outline: transparent;
-}
-.error-message {
-  color: red;
-}
 
 .is-done {
   opacity: 0.5;
-}
-.todoListWrapper {
-  padding: 10px;
 }

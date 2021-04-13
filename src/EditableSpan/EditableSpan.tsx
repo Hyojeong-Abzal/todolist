@@ -1,3 +1,4 @@
+import { TextField } from "@material-ui/core";
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 
 type EditableSpanPropsType = {
@@ -29,17 +30,12 @@ export function EditableSpan(props: EditableSpanPropsType) {
       setNewTaskText(props.text);
     }
   };
-  const inputStyleError = {
-    border: " 3px solid red",
-    backgroundColor: "lightblue",
-  };
-  const inputStyle = {
-    border: "solid 1px red",
-    backgroundColor: "lightblue",
-  };
+
   return editMode ? (
-    <input
-      style={error ? inputStyleError : inputStyle}
+    <TextField
+      error={!!error}
+      color={"primary"}
+      variant={"standard"}
       value={newTaskText}
       autoFocus
       onBlur={offEditMode}
