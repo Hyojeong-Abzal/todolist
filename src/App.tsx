@@ -15,11 +15,11 @@ import {
 } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
 
-export type filterTypeValue = 'All' | 'Active' | 'Completed'
+export type FilterTypeValue = 'All' | 'Active' | 'Completed'
 export type todolistTypeArr = {
   id: string
   title: string
-  filter: filterTypeValue
+  filter: FilterTypeValue
 }
 type TasksStateType = {
   [key: string]: Array<tasksType>
@@ -79,7 +79,9 @@ function App() {
     setTasks({ ...tasks })
   }
 
-  function changeFilter(value: filterTypeValue, todolistId: string) {
+
+
+  function changeFilter(value: FilterTypeValue, todolistId: string) {
     let todolist = todolists.find((tl) => tl.id === todolistId)
     if (todolist) {
       todolist.filter = value
@@ -118,6 +120,9 @@ function App() {
     )
     setTodolists(updatedTodolits)
   }
+
+
+
   const todolistComponents = todolists.map((tl) => {
     const tasksFilter = getTasksForTodoList(tl)
     return (
