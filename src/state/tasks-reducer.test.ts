@@ -1,12 +1,13 @@
 import {
-  AddTaskAC,
-  ChangeTaskStatusAC,
-  ChangeTaskTextAC,
-  RemoveTaskAC,
-  tasksReducers,
+  addTaskAC,
+  changeTaskStatusAC,
+  changeTaskTextAC,
+  removeTaskAC,
+  tasksReducer as tasksReducer,
 } from './tasks-reducer'
 import { v1 } from 'uuid'
 import { TasksStateType } from '../App'
+import { addTodolistAC } from './todolists-reducers'
 
 let startState: TasksStateType
 let todolistId1 = v1()
@@ -35,9 +36,9 @@ beforeEach(() => {
 /////////////
 
 test('correct task should be added', () => {
-  const endState: TasksStateType = tasksReducers(
+  const endState: TasksStateType = tasksReducer(
     startState,
-    AddTaskAC(newText, todolistId1)
+    addTaskAC(newText, todolistId1)
   )
 
   expect(endState[todolistId1].length).toBe(3)
@@ -47,9 +48,9 @@ test('correct task should be added', () => {
 ///////////////
 
 test('correct task should be deleted', () => {
-  const endState: TasksStateType = tasksReducers(
+  const endState: TasksStateType = tasksReducer(
     startState,
-    RemoveTaskAC(taskId3, todolistId2)
+    removeTaskAC(taskId3, todolistId2)
   )
 
   expect(endState[todolistId2].length).toBe(1)
@@ -59,9 +60,9 @@ test('correct task should be deleted', () => {
 ////////////////
 
 test('correct task should change its text', () => {
-  const endState: TasksStateType = tasksReducers(
+  const endState: TasksStateType = tasksReducer(
     startState,
-    ChangeTaskTextAC(taskId2, newText, todolistId1)
+    changeTaskTextAC(taskId2, newText, todolistId1)
   )
 
   expect(endState[todolistId1][1].text).toBe(newText)
@@ -71,11 +72,25 @@ test('correct task should change its text', () => {
 //////////////////
 
 test('correct task should change its status', () => {
-  const endState: TasksStateType = tasksReducers(
+  const endState: TasksStateType = tasksReducer(
     startState,
-    ChangeTaskStatusAC(taskId4, newValue, todolistId2)
+    changeTaskStatusAC(taskId4, newValue, todolistId2)
   )
 
   expect(endState[todolistId2][1].isDone).toBe(newValue)
   expect(endState[todolistId2][0].isDone).toBe(true)
+})
+// 5 test
+
+test('new array should be added when new todolist is added', () => {
+  const endState = tasksReducer(startState, addTodolistAC('new todolist'))
+
+  const keys = Object.keys(endState)
+  const newKey = keys.find((k) => k != todolistId1 && k != todolistId2)
+  if (!newKey) {
+    throw Error('new key should be added')
+  }
+
+  expect(keys.length).toBe(3)
+  expect(endState[newKey].length).toBe(0)
 })
