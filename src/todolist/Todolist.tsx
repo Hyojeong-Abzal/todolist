@@ -62,8 +62,7 @@ export const Todolist: React.FC<todolistType> = (props) => {
 
   const onAllClickHandler = () => props.changeFilter("All", props.id);
   const onActiveClickHandler = () => props.changeFilter("Active", props.id);
-  const onCompletedClickHandler = () =>
-    props.changeFilter("Completed", props.id);
+  const onCompletedClickHandler = () => props.changeFilter("Completed", props.id);
 
   const addTask = (title: string) => {
     props.addTask(title, props.id);

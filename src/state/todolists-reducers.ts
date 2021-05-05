@@ -19,9 +19,11 @@ type ChangeTodolistTitleActionType = {
 
 type ChangeTodolistFilterActionType = {
   type: 'CHANGE-TODOLIST-FILTER'
-  todolistID: string
   newFilterValue: FilterTypeValue
+  todolistID: string
 }
+
+const initialState: Array<todolistTypeArr> = []
 
 type ActionsType =
   | RemoveTodolistActionType
@@ -30,7 +32,7 @@ type ActionsType =
   | ChangeTodolistFilterActionType
 
 export const todolistsReducer = (
-  todolists: Array<todolistTypeArr>,
+  todolists = initialState,
   action: ActionsType
 ): Array<todolistTypeArr> => {
   switch (action.type) {

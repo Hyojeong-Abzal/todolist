@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { v1 } from 'uuid'
 import { TasksStateType } from '../App'
-import { AddTodolistActionType, RemoveTodolistActionType } from './todolists-reducers'
+import {
+  AddTodolistActionType,
+  RemoveTodolistActionType,
+} from './todolists-reducers'
 
 type addTaskActionType = {
   type: 'ADD-TASK'
@@ -29,6 +32,8 @@ type changeTaskStatusActionType = {
   todolistId: string
 }
 
+const initialState: TasksStateType = {}
+
 type tasksActionType =
   | addTaskActionType
   | removeTaskActionType
@@ -38,7 +43,7 @@ type tasksActionType =
   | RemoveTodolistActionType
 
 export const tasksReducer = (
-  tasks: TasksStateType,
+  tasks = initialState,
   action: tasksActionType
 ): TasksStateType => {
   let stateCopy = { ...tasks }
@@ -67,9 +72,9 @@ export const tasksReducer = (
     case 'ADD-TODOLIST':
       stateCopy = { ...stateCopy, [action.id]: [] }
       return stateCopy
-    case 'REMOVE-TODOLIST': 
-     delete stateCopy[action.todolistID]
-    return stateCopy
+    case 'REMOVE-TODOLIST':
+      delete stateCopy[action.todolistID]
+      return stateCopy
     default:
       return tasks
   }
