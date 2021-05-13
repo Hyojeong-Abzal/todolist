@@ -31,27 +31,8 @@ export type TasksStateType = {
 export function AppWithRedux() {
 
   let todolists = useSelector<AppRootStateType, todolistTypeArr[]>(state => state.todolists);
-  let tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
   let dispatch = useDispatch()
 
-
-  //tasks
-  function changeTaskStatus(
-    taskID: string,
-    isDoneValue: boolean,
-    todolistId: string
-  ) {
-    dispatch(changeTaskStatusAC(taskID, isDoneValue, todolistId))
-  }
-  function changeTaskText(taskID: string, text: string, todolistId: string) {
-    dispatch(changeTaskTextAC(taskID, text, todolistId))
-  }
-  function addTask(text: string, todolistId: string) {
-    dispatch(addTaskAC(text, todolistId))
-  }
-  function removeTask(id: string, todolistId: string) {
-    dispatch(removeTaskAC(id, todolistId))
-  }
 
 
   // todolist
@@ -70,19 +51,9 @@ export function AppWithRedux() {
   }
 
 
-  function getTasksForTodoList(todoList: todolistTypeArr): Array<tasksType> {
-    switch (todoList.filter) {
-      case 'Active':
-        return tasks[todoList.id].filter((t) => t.isDone === false)
-      case 'Completed':
-        return tasks[todoList.id].filter((t) => t.isDone === true)
-      default:
-        return tasks[todoList.id]
-    }
-  }
+ 
 
   const todolistComponents = todolists.map((tl) => {
-    const tasksFilter = getTasksForTodoList(tl)
     return (
       <Grid item key={tl.id}>
         <Paper style={{ padding: "15px", borderRadius: "15px" }} elevation={7}>
@@ -91,12 +62,7 @@ export function AppWithRedux() {
             id={tl.id}
             title={tl.title}
             filter={tl.filter}
-            changeTaskStatus={changeTaskStatus}
-            changeTaskText={changeTaskText}
-            tasks={tasksFilter}
-            removeTask={removeTask}
             changeFilter={changeFilter}
-            addTask={addTask}
             removeTodolist={removeTodolist}
             changeTodolistTitle={changeTodolistTitle}
           />

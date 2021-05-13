@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { v1 } from 'uuid'
-import { TasksStateType } from '../App'
+import { TasksStateType } from '../AppWithRedux'
 import {
   AddTodolistActionType,
   RemoveTodolistActionType,
