@@ -6,7 +6,8 @@ type AddItemFormPropsType = {
   addItem: (title: string) => void // parents callback
 }
 
-export function AddItemForm(props: AddItemFormPropsType) {
+export const AddItemForm = React.memo((props: AddItemFormPropsType) => {
+  console.log("AddItemForm is called")
   const [newTaskText, setNewTaskText] = useState('')
   const [error, setError] = useState<string | null>(null)
 
@@ -47,4 +48,4 @@ export function AddItemForm(props: AddItemFormPropsType) {
       </Button>
     </div>
   )
-}
+});

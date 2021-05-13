@@ -47,9 +47,14 @@ export const tasksReducer = (
   action: tasksActionType
 ): TasksStateType => {
   let stateCopy = { ...tasks }
+
   switch (action.type) {
     case 'ADD-TASK':
+      debugger
       let newTask = { id: v1(), text: action.text, isDone: false }
+
+      tasks[action.todolistId] = tasks[action.todolistId].map((t) => t, newTask)
+
       stateCopy[action.todolistId] = [...stateCopy[action.todolistId], newTask]
       return stateCopy
     case 'REMOVE-TASK':
