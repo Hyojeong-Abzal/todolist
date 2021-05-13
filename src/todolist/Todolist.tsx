@@ -55,7 +55,7 @@ export const Todolist: React.FC<todolistType> = React.memo((props) => {
   }
 
   const task = filterdTasks.map((task) => {
-    <Task key={task.id} task={task} todolistId={props.id} />
+    return <Task key={task.id} task={task} todolistId={props.id} />
   });
 
   const onAllClickHandler = useCallback(() => props.changeFilter("All", props.id), [props.changeFilter, props.id]);
