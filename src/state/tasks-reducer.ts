@@ -130,3 +130,13 @@ export const changeTaskStatusAC = (
     todolistId,
   }
 }
+export const createNewTask = (
+  text: string,
+  todolistId: string
+): addTaskActionType => {
+  return {
+    type: 'ADD-TASK',
+    text,
+    todolistId
+  }
+}
