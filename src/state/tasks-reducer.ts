@@ -137,6 +137,6 @@ export const createNewTask = (
   return {
     type: 'ADD-TASK',
     text,
-    todolistId
+    todolistId,
   }
 }

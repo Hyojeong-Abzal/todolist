@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/react';
 import { action } from "@storybook/addon-actions"
 
 import { Task, TaskPropsType } from './Task';
+import { ReduxStoreProviderDecorator } from '../../stories/decorators/ReduxStoreProviderDecorator';
 
 const changeTaskStatus = action("Status changed inside Task");
 const ChangeTaskTitle = action("Title changed inside Task");
@@ -11,6 +12,8 @@ const removeTask = action("remove Button insede Task clicked")
 export default {
     title: 'Todolist/Task',
     component: Task,
+    decorators: [ReduxStoreProviderDecorator]
+
 
 } as Meta;
 
