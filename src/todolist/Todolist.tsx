@@ -68,7 +68,7 @@ export const Todolist: React.FC<todolistType> = React.memo((props) => {
     <div className={"todoListWrapper"}>
 
       <h3 style={{ display: "flex" }}>
-        <EditableSpan text={props.title} changeText={changeTodolistTitle} />
+        <EditableSpan text={props.title} onChange={changeTodolistTitle} />
       </h3>
 
       <AddItemForm addItem={addTask} />

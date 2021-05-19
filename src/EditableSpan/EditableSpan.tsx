@@ -1,9 +1,9 @@
 import { TextField } from "@material-ui/core";
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 
-type EditableSpanPropsType = {
+export type EditableSpanPropsType = {
   text: string;
-  changeText: (text: string) => void;
+  onChange: (text: string) => void;
 };
 export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
   console.log("EditableSpan is called")
@@ -24,10 +24,10 @@ export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     setEditMode(false);
     const trimmedTaskText = newTaskText.trim();
     if (trimmedTaskText) {
-      props.changeText(newTaskText);
+      props.onChange(newTaskText);
       setError(false);
     } else {
-      props.changeText(props.text);
+      props.onChange(props.text);
       setNewTaskText(props.text);
     }
   };

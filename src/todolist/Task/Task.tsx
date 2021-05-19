@@ -7,11 +7,9 @@ import { changeTaskStatusAC, changeTaskTextAC, removeTaskAC } from '../../state/
 import { TasksType } from '../Todolist';
 
 
-type TaskPropsType = {
+export type TaskPropsType = {
     task: TasksType
     todolistId: string
-
-
 }
 
 
@@ -41,7 +39,7 @@ const onRemoveHadler = () => {
           onChange={changeStatus}
         />
 
-        <EditableSpan text={props.task.text} changeText={changeText} />
+        <EditableSpan text={props.task.text} onChange={changeText} />
         <IconButton onClick={onRemoveHadler}>
           <Delete />
         </IconButton>

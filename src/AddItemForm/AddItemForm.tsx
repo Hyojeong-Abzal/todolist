@@ -2,7 +2,7 @@ import { Button, TextField } from '@material-ui/core'
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
 
-type AddItemFormPropsType = {
+export type AddItemFormPropsType = {
   addItem: (title: string) => void // parents callback
 }
 
