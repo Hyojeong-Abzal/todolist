@@ -38,7 +38,7 @@ export const CreateTodolist = () => {
 }
 export const DeleteTodolist = () => {
     const [state, setState] = useState<any>(null)
-    const todolistId1 = "c54eb124-4f83-4516-a360-6ab7ec0dccd1";
+    const todolistId1 = "d8f02cdf-85a1-433b-9118-cda5ff332994";
     useEffect(() => {
         todolistAPI.deleteTodolist(todolistId1)
             .then((res) => {
@@ -83,7 +83,7 @@ export const GetTodolistTasks = () => {
 export const CreateTaskInTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todolistId = "dba33205-385d-45cd-9489-4bee03ebb54f"
+        const todolistId = "2cdce626-a10c-49fb-9156-754e58039d83"
         TasksAPI.createTaskInTodolist(todolistId, "new Task")
             .then((res) => {
                 setState(res.data);
@@ -98,7 +98,7 @@ export const CreateTaskInTodolist = () => {
 export const DeleteTaskInTodolist = () => {
     const [state, setState] = useState<any>(null)
     const todolistId1 = "dba33205-385d-45cd-9489-4bee03ebb54f";
-    const taskId = "84a6331c-eca1-426d-be3e-44cd5b145a78"
+    const taskId = "b8f81506-5d5b-417f-b799-eae5e6bd5c14"
     useEffect(() => {
         TasksAPI.deleteTaskInTodolist(todolistId1, taskId)
             .then((res) => {
@@ -109,18 +109,18 @@ export const DeleteTaskInTodolist = () => {
     return <div> {JSON.stringify(state)}</div>
 }
 
-export const UpdateTasksTitleInTodolistTitle = () => {
+export const UpdateTasksTitleInTodolist = () => {
     const [state, setState] = useState<any>(null)
     const todolistId1 = "dba33205-385d-45cd-9489-4bee03ebb54f";
-    const taskId = "84a6331c-eca1-426d-be3e-44cd5b145a78";
+    const taskId = "f90eb336-aaa6-4bb5-8d0d-ff2ff0c1faaf";
 
     const newTitle = {
         title: "SUANnnnnnNNNNN",
-        description: null,
-        status: 0,
+        description: "",
+        status: 1,
         priority: 1,
-        startDate: null,
-        deadline: null,
+        startDate: "",
+        deadline: "",
     }
     useEffect(() => {
         TasksAPI.updateTasksTitleInTodolist(todolistId1, taskId, newTitle)

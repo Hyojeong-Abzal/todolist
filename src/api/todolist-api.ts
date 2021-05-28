@@ -50,7 +50,7 @@ const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.1/',
   withCredentials: true,
   headers: {
-    'API-KEY': 'e63f5bfc-9e87-4bfe-bfb0-c2fdad6af5c9',
+    'API-KEY': process.env.REACT_APP_API_KEY,
   },
 })
 
@@ -88,6 +88,6 @@ export const TasksAPI = {
     taskId: string,
     title: updateTaskType
   ) {
-    return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`, { title })
+    return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`, title)
   },
 }
