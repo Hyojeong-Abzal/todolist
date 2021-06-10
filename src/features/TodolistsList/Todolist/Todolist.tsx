@@ -1,17 +1,19 @@
-import React, {useCallback, useEffect} from 'react'
-import {AddItemForm} from '../../../components/AddItemForm/AddItemForm'
-import {EditableSpan} from '../../../components/EditableSpan/EditableSpan'
-import {Button, IconButton} from '@material-ui/core'
-import {Delete} from '@material-ui/icons'
-import {Task} from './Task/Task'
-import {TaskStatuses, TaskType} from '../../../api/todolists-api'
-import {FilterValuesType} from '../todolists-reducer'
-import {useDispatch} from 'react-redux'
-import {fetchTasksTC} from '../tasks-reducer'
+import React, { useCallback, useEffect } from 'react'
+import { AddItemForm } from '../../../components/AddItemForm/AddItemForm'
+import { EditableSpan } from '../../../components/EditableSpan/EditableSpan'
+import { Button, IconButton } from '@material-ui/core'
+import { Delete } from '@material-ui/icons'
+import { Task } from './Task/Task'
+import { TaskStatuses, TaskType } from '../../../api/todolists-api'
+import { FilterValuesType } from '../todolists-reducer'
+import { useDispatch } from 'react-redux'
+import { fetchTasksTC } from '../tasks-reducer'
+import { RequesStatusType } from '../../../app/app-reducer'
 
 type PropsType = {
     id: string
     title: string
+    entityStatus: RequesStatusType
     tasks: Array<TaskType>
     changeFilter: (value: FilterValuesType, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
@@ -59,34 +61,35 @@ export const Todolist = React.memo(function (props: PropsType) {
     }
 
     return <div>
-        <h3><EditableSpan value={props.title} onChange={changeTodolistTitle}/>
-            <IconButton onClick={removeTodolist}>
-                <Delete/>
+        <h3><EditableSpan value={props.title} onChange={changeTodolistTitle} disabled={props.entityStatus === 'loading'} />
+            <IconButton disabled={props.entityStatus === 'loading'} onClick={removeTodolist}>
+                <Delete />
             </IconButton>
         </h3>
-        <AddItemForm addItem={addTask}/>
+        <AddItemForm addItem={addTask} disabled={props.entityStatus === 'loading'} />
         <div>
             {
                 tasksForTodolist.map(t => <Task key={t.id} task={t} todolistId={props.id}
-                                                removeTask={props.removeTask}
-                                                changeTaskTitle={props.changeTaskTitle}
-                                                changeTaskStatus={props.changeTaskStatus}
+                    removeTask={props.removeTask}
+                    changeTaskTitle={props.changeTaskTitle}
+                    changeTaskStatus={props.changeTaskStatus}
+                    entityStatus={props.entityStatus}
                 />)
             }
         </div>
-        <div style={{paddingTop: '10px'}}>
+        <div style={{ paddingTop: '10px' }}>
             <Button variant={props.filter === 'all' ? 'outlined' : 'text'}
-                    onClick={onAllClickHandler}
-                    color={'default'}
+                onClick={onAllClickHandler}
+                color={'default'}
             >All
             </Button>
             <Button variant={props.filter === 'active' ? 'outlined' : 'text'}
-                    onClick={onActiveClickHandler}
-                    color={'primary'}>Active
+                onClick={onActiveClickHandler}
+                color={'primary'}>Active
             </Button>
             <Button variant={props.filter === 'completed' ? 'outlined' : 'text'}
-                    onClick={onCompletedClickHandler}
-                    color={'secondary'}>Completed
+                onClick={onCompletedClickHandler}
+                color={'secondary'}>Completed
             </Button>
         </div>
     </div>

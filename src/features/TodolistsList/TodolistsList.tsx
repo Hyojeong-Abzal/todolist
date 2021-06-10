@@ -42,6 +42,7 @@ export const TodolistsList: React.FC = () => {
     }, [])
 
     const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
+
         const thunk = updateTaskTC(id, {title: newTitle}, todolistId)
         dispatch(thunk)
     }, [])
@@ -81,6 +82,7 @@ export const TodolistsList: React.FC = () => {
                             <Todolist
                                 id={tl.id}
                                 title={tl.title}
+                                entityStatus={tl.entityStatus}
                                 tasks={allTodolistTasks}
                                 removeTask={removeTask}
                                 changeFilter={changeFilter}
