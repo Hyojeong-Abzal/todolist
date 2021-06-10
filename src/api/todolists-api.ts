@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { TaskWithEntityStatusType } from '../features/TodolistsList/tasks-reducer'
 
 const settings = {
   withCredentials: true,
@@ -104,5 +105,5 @@ export type UpdateTaskModelType = {
 type GetTasksResponse = {
   error: string | null
   totalCount: number
-  items: TaskType[]
+  items: TaskWithEntityStatusType[]
 }

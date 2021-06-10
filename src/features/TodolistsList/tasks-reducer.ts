@@ -1,4 +1,5 @@
 import {
+  RequesStatusType,
   setAppError,
   SetAppErrorType,
   SetAppStatusType,
@@ -41,7 +42,7 @@ export const tasksReducer = (
       return {
         ...state,
         [action.task.todoListId]: [
-          action.task,
+          { ...action.task, entityStatus: 'idle' },
           ...state[action.task.todoListId],
         ],
       }
@@ -67,6 +68,15 @@ export const tasksReducer = (
     }
     case 'SET-TASKS':
       return { ...state, [action.todolistId]: action.tasks }
+    case 'CHANGE_TASK_ENTITY_STATUS':
+      return {
+        ...state,
+        [action.todolistId]: state[action.todolistId].map((t) =>
+          t.id === action.taskId
+            ? { ...t, entityStatus: action.entityStatus }
+            : t
+        ),
+      }
     default:
       return state
   }
@@ -82,9 +92,21 @@ export const updateTaskAC = (
   model: UpdateDomainTaskModelType,
   todolistId: string
 ) => ({ type: 'UPDATE-TASK', model, todolistId, taskId } as const)
-export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) =>
-  ({ type: 'SET-TASKS', tasks, todolistId } as const)
-
+export const setTasksAC = (
+  tasks: Array<TaskWithEntityStatusType>,
+  todolistId: string
+) => ({ type: 'SET-TASKS', tasks, todolistId } as const)
+export const changeTaskEntityStatus = (
+  todolistId: string,
+  taskId: string,
+  entityStatus: RequesStatusType
+) =>
+  ({
+    type: 'CHANGE_TASK_ENTITY_STATUS',
+    todolistId,
+    taskId,
+    entityStatus,
+  } as const)
 // thunks
 export const fetchTasksTC = (todolistId: string) => (
   dispatch: Dispatch<ActionsType>
@@ -101,6 +123,7 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (
   dispatch: Dispatch<ActionsType>
 ) => {
   dispatch(setAppStatus('loading'))
+  dispatch(changeTaskEntityStatus(todolistId, taskId, 'loading'))
   todolistsAPI
     .deleteTask(todolistId, taskId)
     .then((res) => {
@@ -185,8 +208,11 @@ export type UpdateDomainTaskModelType = {
   startDate?: string
   deadline?: string
 }
+export type TaskWithEntityStatusType = TaskType & {
+  entityStatus: RequesStatusType
+}
 export type TasksStateType = {
-  [key: string]: Array<TaskType>
+  [key: string]: Array<TaskWithEntityStatusType>
 }
 type ActionsType =
   | ReturnType<typeof removeTaskAC>
@@ -198,3 +224,4 @@ type ActionsType =
   | ReturnType<typeof setTasksAC>
   | SetAppStatusType
   | SetAppErrorType
+  | ReturnType<typeof changeTaskEntityStatus>
