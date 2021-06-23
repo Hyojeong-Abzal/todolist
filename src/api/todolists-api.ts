@@ -1,15 +1,11 @@
 import axios from 'axios'
-import { TaskWithEntityStatusType } from '../features/TodolistsList/tasks-reducer'
 
-const settings = {
-  withCredentials: true,
-  headers: {
-    'API-KEY': process.env.REACT_APP_API_KEY,
-  },
-}
 const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-  ...settings,
+  withCredentials: true,
+  headers: {
+    'API-KEY': 'e63f5bfc-9e87-4bfe-bfb0-c2fdad6af5c9',
+  },
 })
 
 // api
@@ -56,6 +52,32 @@ export const todolistsAPI = {
     )
   },
 }
+//
+export type loginAPItype = {
+  email: string
+  password: string
+  rememberMe: boolean
+  captcha?: string
+}
+export type FormErrorType = {
+  email?: string
+  password?: string
+  rememberMe?: boolean
+}
+
+//login api
+
+export const authAPI = {
+  login(payload: loginAPItype) {
+    return instance.post<ResponseType<{ userId: null }>>(`auth/login`, payload)
+  },
+  me() {
+    return instance.get<ResponseType<FormErrorType>>('auth/me')
+  },
+  logout() {
+    return instance.delete<ResponseType>(`/auth/login`)
+  },
+}
 
 // types
 export type TodolistType = {
@@ -69,12 +91,14 @@ export type ResponseType<D = {}> = {
   messages: Array<string>
   data: D
 }
+
 export enum TaskStatuses {
   New = 0,
   InProgress = 1,
   Completed = 2,
   Draft = 3,
 }
+
 export enum TaskPriorities {
   Low = 0,
   Middle = 1,
@@ -82,6 +106,7 @@ export enum TaskPriorities {
   Urgently = 3,
   Later = 4,
 }
+
 export type TaskType = {
   description: string
   title: string
@@ -105,5 +130,5 @@ export type UpdateTaskModelType = {
 type GetTasksResponse = {
   error: string | null
   totalCount: number
-  items: TaskWithEntityStatusType[]
+  items: TaskType[]
 }
