@@ -45,7 +45,7 @@ function App({ demo = false }: PropsType) {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    { isLoggedIn && <Button onClick={() => dispatch(logoutTC())} color='inherit'>Log out</Button>}
+                    {isLoggedIn && <Button onClick={() => dispatch(logoutTC())} color='inherit'>Log out</Button>}
                     <Button color="inherit">Login</Button>
                 </Toolbar>
                 {status === 'loading' && <LinearProgress />}
@@ -54,7 +54,7 @@ function App({ demo = false }: PropsType) {
 
             <Container fixed>
                 <Switch>
-                    <Route exact path={"/"} render={() => <TodolistsList demo={demo} />} />
+                    <Route exact path={"/todolist"} render={() => <TodolistsList demo={demo} />} />
                     <Route path={"/Login"} render={() => <Login />} />
                     <Route path={"/404"} render={() => <h1> 404: PAGE NOT FOUND</h1>} />
                     <Redirect from={"*"} to={'/404'} />
